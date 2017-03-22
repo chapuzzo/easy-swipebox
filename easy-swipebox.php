@@ -8,11 +8,11 @@
  * @package           EasySwipeBox
  *
  * @wordpress-plugin
- * Plugin Name: Easy SwipeBox
- * Plugin URI: https://github.com/leopuleo
+ * Plugin Name: Easy SwipeBox With Banner
+ * Plugin URI: https://github.com/chapuzzo/easy-swipebox
  * Description: Easily enable <a href="http://brutaldesign.github.io/swipebox/">SwipeBox jQuery extension</a> on all links to image or video (Youtube / Vimeo). Optimized for responsive layouts and touch devices.
  * Version:           1.1.0
- * Author: Leonardo Giacone
+ * Author: Leonardo Giacone & Chapuzzo
  * Author URI: https://github.com/leopuleo
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
