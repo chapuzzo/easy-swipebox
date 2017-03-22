@@ -233,12 +233,12 @@
           height : height
         };
 
-        if (isMobile || !plugin.settings.banner) {
+        if (isMobile || width <= 800  || !plugin.settings.banner) {
           $('#swipebox-banner').hide();
           $('#swipebox-container').width('100%');
         }
         else {
-          $('#swipebox-banner').html(plugin.settings.banner)
+          $('#swipebox-banner').html( plugin.settings.banner );
         }
 
         $( '#swipebox-overlay' ).css( sliderCss );
