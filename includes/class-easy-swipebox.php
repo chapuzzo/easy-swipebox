@@ -136,9 +136,15 @@ class EasySwipeBox {
       'debugMode' => 0
     );
 
+    // Define defaults for banner options
+    $this->defaults_banner = array (
+      'code' => ''
+    );
+
     $this->options_autodetect = wp_parse_args(get_option('easySwipeBox_autodetect'), $this->defaults_autodetect);
     $this->options_lightbox = wp_parse_args(get_option('easySwipeBox_lightbox'), $this->defaults_lightbox);
     $this->options_advanced = wp_parse_args(get_option('easySwipeBox_advanced'), $this->defaults_advanced);
+    $this->options_banner = wp_parse_args(get_option('easySwipeBox_banner'), $this->defaults_banner);
 
     $this->loadDependencies();
     $this->setLocale();

@@ -13,7 +13,7 @@ html.swipebox-html.swipebox-touch {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 99999 !important;
+  z-index: 999999 !important;
   overflow: hidden;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -23,8 +23,17 @@ html.swipebox-html.swipebox-touch {
 
 #swipebox-container {
   position: relative;
-  width: 100%;
+  width: calc(100% - 320px);
   height: 100%;
+}
+
+#swipebox-banner {
+  position: absolute;
+  width: 320px;
+  height: 100%;
+  background-color: maroon;
+  right: 0;
+  top: 0;
 }
 
 #swipebox-slider {
@@ -274,7 +283,7 @@ html.swipebox-html.swipebox-touch {
     max-width: 800px;
   }
 }
-/* Skin 
+/* Skin
 --------------------------*/
 #swipebox-overlay {
   background: #0d0d0d;

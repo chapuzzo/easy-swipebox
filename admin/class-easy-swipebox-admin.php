@@ -69,13 +69,14 @@ class EasySwipeboxAdmin {
    * @param      string    $options_autodetect       The autodetection options.
    * @param      string    $options_lightbox    The lightbox options.
    */
-  public function __construct($plugin_name, $version, $options_autodetect, $options_lightbox, $options_advanced) {
+  public function __construct($plugin_name, $version, $options_autodetect, $options_lightbox, $options_advanced, $options_banner) {
 
     $this->plugin_name = $plugin_name;
     $this->version = $version;
     $this->options_autodetect = $options_autodetect;
     $this->options_lightbox = $options_lightbox;
     $this->options_advanced = $options_advanced;
+    $this->options_banner = $options_banner;
 
   }
 
@@ -142,6 +143,7 @@ class EasySwipeboxAdmin {
     register_setting('easySwipeBox_lightbox', 'easySwipeBox_lightbox', array($this, 'sanitizeLightbox'));
     register_setting('easySwipeBox_advanced', 'easySwipeBox_advanced', array($this, 'sanitizeAdvanced'));
     register_setting('easySwipeBox_overview', 'easySwipeBox_overview');
+    register_setting('easySwipeBox_banner', 'easySwipeBox_banner', array($this, 'sanitizeBanner'));
 
     // Section: Lightbox Settings
     add_settings_section(
@@ -173,6 +175,14 @@ class EasySwipeboxAdmin {
       __('Overview', $this->plugin_name),
       array($this, 'descriptionSectionRender'),
       'easySwipeBox_overview'
+    );
+
+    // Section: Banner Settings
+    add_settings_section(
+      'banner_section',
+      'Banner',
+      array($this, 'bannerRender'),
+      'easySwipeBox_banner'
     );
 
     // Field: Lightbox Settings -> Animation
@@ -314,6 +324,26 @@ class EasySwipeboxAdmin {
     ?>
       <p><?php _e('In this page you can customize the SwipeBox lightbox behaviour. Discover more about <strong><a href="http://brutaldesign.github.io/swipebox/?source=easy-swipebox-wp-plugin" target="_blank">SwipeBox options</a></strong>.', $this->plugin_name); ?><br>
       </p>
+    <?php
+  }
+
+  public function sanitizeBanner($input){
+    $valid_input = array();
+
+    if (isset($input['code'])) {
+      $valid_input['code'] = $input['code'];
+    }
+
+    return $valid_input;
+  }
+
+  public function bannerRender(){
+    ?>
+      <label>
+        banner code:
+        <textarea id="easySwipeBox_banner[code]" name="easySwipeBox_banner[code]"><?php echo $this->options_banner['code']?></textarea>
+      </label>
+      <br/>
     <?php
   }
 
@@ -540,6 +570,7 @@ class EasySwipeboxAdmin {
         <a href="<?php echo admin_url('options-general.php?page=easy-swipebox-settings&tab=autodetect_options');?>" class="nav-tab <?php echo $active_tab == 'autodetect_options' ? 'nav-tab-active' : ''; ?>"><?php _e('Autodetect', $this->plugin_name); ?></a>
         <a href="<?php echo admin_url('options-general.php?page=easy-swipebox-settings&tab=advanced_options');?>" class="nav-tab <?php echo $active_tab == 'advanced_options' ? 'nav-tab-active' : ''; ?>"><?php _e('Advanced', $this->plugin_name); ?></a>
         <a href="<?php echo admin_url('options-general.php?page=easy-swipebox-settings&tab=overview');?>" class="nav-tab <?php echo $active_tab == 'overview' ? 'nav-tab-active' : ''; ?>"><?php _e('Overview', $this->plugin_name); ?></a>
+        <a href="<?php echo admin_url('options-general.php?page=easy-swipebox-settings&tab=banner');?>" class="nav-tab <?php echo $active_tab == 'banner' ? 'nav-tab-active' : ''; ?>">Banner</a>
     </h2>
 
     <?php
@@ -565,6 +596,12 @@ class EasySwipeboxAdmin {
       case 'overview':
         settings_fields('easySwipeBox_overview');
         do_settings_sections('easySwipeBox_overview');
+        break;
+
+      case 'banner':
+        settings_fields('easySwipeBox_banner');
+        do_settings_sections('easySwipeBox_banner');
+        submit_button();
         break;
 
       default:

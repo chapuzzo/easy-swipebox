@@ -78,13 +78,14 @@ class EasySwipeBoxPublic {
    * @param      string    $options_autodetect       The autodetection options.
    * @param      string    $options_lightbox    The lightbox options.
    */
-  public function __construct($plugin_name, $version, $options_autodetect, $options_lightbox, $options_advanced) {
+  public function __construct($plugin_name, $version, $options_autodetect, $options_lightbox, $options_advanced, $options_banner) {
 
     $this->plugin_name = $plugin_name;
     $this->version = $version;
     $this->options_autodetect = $options_autodetect;
     $this->options_lightbox = $options_lightbox;
     $this->options_advanced = $options_advanced;
+    $this->options_banner = $options_banner;
   }
 
   /**
@@ -107,11 +108,11 @@ class EasySwipeBoxPublic {
     wp_dequeue_style('jquery_swipebox');
     wp_dequeue_style('jquery-swipebox');
 
-    if ($this->options_advanced['debugMode'] == 1) {
       wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/swipebox.css', array(), $this->version, 'all');
-    } else {
-      wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/swipebox.min.css', array(), $this->version, 'all');
-    }
+    // if ($this->options_advanced['debugMode'] == 1) {
+    // } else {
+    //   wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/swipebox.min.css', array(), $this->version, 'all');
+    // }
   }
 
   /**
@@ -141,11 +142,11 @@ class EasySwipeBoxPublic {
      * 3) Localized options with vars stored in db
      */
 
-    if ($this->options_advanced['debugMode'] == 1) {
-      wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/jquery.swipebox.js', array( 'jquery'), $this->version, $jsPosition);
-    } else {
-      wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/jquery.swipebox.min.js', array( 'jquery'), $this->version, $jsPosition);
-    }
+    wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/jquery.swipebox.js', array( 'jquery'), $this->version, $jsPosition);
+    // if ($this->options_advanced['debugMode'] == 1) {
+    // } else {
+    //   wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/jquery.swipebox.min.js', array( 'jquery'), $this->version, $jsPosition);
+    // }
 
     wp_enqueue_script($this->plugin_name .'-init', plugin_dir_url(__FILE__) . 'js/jquery.init.js', array( 'jquery'), $this->version, $jsPosition);
     wp_localize_script($this->plugin_name .'-init', 'easySwipeBox_localize_init_var', $this->localizeInitVar());
@@ -170,7 +171,8 @@ class EasySwipeBoxPublic {
         'videoMaxWidth' => absint($this->options_lightbox['videoMaxWidth']),
         'vimeoColor' => $this->sanitizeHexColor($this->options_lightbox['vimeoColor']),
         'loopAtEnd' => (bool)$this->options_lightbox['loopAtEnd'],
-        'autoplayVideos' => (bool)$this->options_lightbox['autoplayVideos']
+        'autoplayVideos' => (bool)$this->options_lightbox['autoplayVideos'],
+        'bannerCode' => $this->options_banner['code']
       ),
       'autodetect' => array(
         'autodetectImage' => (bool)$this->options_autodetect['image'],

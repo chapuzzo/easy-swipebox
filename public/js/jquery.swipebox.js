@@ -52,6 +52,7 @@
             </div>\
             <a id="swipebox-close"></a>\
           </div>\
+          <div id="swipebox-banner"></div>\
       </div>';
 
     plugin.settings = {};
@@ -231,6 +232,14 @@
           width : width,
           height : height
         };
+
+        if (isMobile || !plugin.settings.banner) {
+          $('#swipebox-banner').hide();
+          $('#swipebox-container').width('100%');
+        }
+        else {
+          $('#swipebox-banner').html(plugin.settings.banner)
+        }
 
         $( '#swipebox-overlay' ).css( sliderCss );
 
