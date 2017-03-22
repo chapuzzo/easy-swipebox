@@ -224,7 +224,7 @@ class EasySwipeBox {
    */
   private function defineAdminHooks() {
 
-    $plugin_admin = new EasySwipeboxAdmin($this->getPluginName(), $this->getVersion(), $this->getOptionsAutodetect(), $this->getOptionsLightbox(), $this->getOptionsAdvanced(), $this->getPluginBasename());
+    $plugin_admin = new EasySwipeboxAdmin($this->getPluginName(), $this->getVersion(), $this->getOptionsAutodetect(), $this->getOptionsLightbox(), $this->getOptionsAdvanced(), $this->getOptionsBanner(), $this->getPluginBasename());
 
     $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'EnqueueStyles');
     $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'EnqueueScripts');
@@ -243,7 +243,7 @@ class EasySwipeBox {
    */
   private function definePublicHooks() {
 
-    $plugin_public = new EasySwipeBoxPublic($this->getPluginName(), $this->getVersion(), $this->getOptionsAutodetect(), $this->getOptionsLightbox(), $this->getOptionsAdvanced());
+    $plugin_public = new EasySwipeBoxPublic($this->getPluginName(), $this->getVersion(), $this->getOptionsAutodetect(), $this->getOptionsLightbox(), $this->getOptionsAdvanced(), $this->getOptionsBanner());
 
     $this->loader->addAction('wp_enqueue_scripts', $plugin_public, 'enqueueStyles');
     $this->loader->addAction('wp_enqueue_scripts', $plugin_public, 'enqueueScripts');
@@ -329,4 +329,16 @@ class EasySwipeBox {
   public function getOptionsAdvanced() {
     return $this->options_advanced;
   }
+
+  /**
+   * Retrieve the options for banner settings.
+   *
+   * @since     1.1.0
+   * @return    array    The options for banner setting.
+   */
+  public function getOptionsBanner() {
+    return $this->options_banner;
+  }
+
+
 }
